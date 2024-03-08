@@ -49,3 +49,28 @@ Request Body:
 - Response:
 - Status Code: 200 OK
 - Body: Returns an array of account objects.
+
+# DB Documentation
+```sql
+CREATE TABLE accounts (
+    id INT NOT NULL PRIMARY KEY auto_increment,
+     name VARCHAR(255) NOT NULL,
+    industry VARCHAR(255),
+    website VARCHAR(255),
+    address TEXT,
+    notes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
+## Accounts Table
+The accounts table is designed to store information about various accounts. Below is the schema of the accounts table:
+
+- id (INT, Primary Key, Auto Increment): Unique identifier for each account.
+- name (VARCHAR(255), Not Null): Name of the account. It is a required field.
+- industry (VARCHAR(255)): Industry of the account.
+- website (VARCHAR(255)): Website URL of the account.
+- address (TEXT): Address of the account.
+- notes (TEXT): Additional notes or comments about the account.
+- created_at (TIMESTAMP, Default: Current Timestamp): Timestamp indicating when the account was created.
+- updated_at (TIMESTAMP, Default: Current Timestamp): Timestamp indicating when the account was last updated.

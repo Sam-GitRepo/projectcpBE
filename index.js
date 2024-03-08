@@ -40,7 +40,7 @@ app.post('/account', (req, res) => {
 
 // Route for getting all items
 app.get('/account', (req, res) => {
-  pool.query('SELECT * FROM accounts', (error, results, fields) => {
+  pool.query('SELECT * FROM accounts ORDER BY  created_at DESC ', (error, results, fields) => {
     if (error) {
       console.error('Error retrieving items:', error);
       res.status(500).json({ error: 'Error retrieving items' });
@@ -53,14 +53,14 @@ app.get('/account', (req, res) => {
 // Route for updating an item
 app.put('/account/:id', (req, res) => {
   const { id } = req.params;
-  const { name, description } = req.body;
-  pool.query('UPDATE items SET name = ?, description = ? WHERE id = ?', [name, description, id], (error, results, fields) => {
+  const { name, industry, website, address, notes } = req.body;
+  pool.query('UPDATE accounts SET name = ?, industry = ?, website = ?, address = ?, notes= ? WHERE id = ?', [name, industry, website, address,notes ,id,],  (error, results, fields) => {
     if (error) {
       console.error('Error updating item:', error);
       res.status(500).json({ error: 'Error updating item' });
       return;
     }
-    res.json({ id, name, description });
+    res.json({ ...req.body});
   });
 });
 

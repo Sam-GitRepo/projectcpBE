@@ -2,7 +2,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
-const cors = require('cors');
+// const cors = require('cors');
 require('dotenv').config();
 
 
@@ -19,7 +19,7 @@ const pool = mysql.createPool({
 // Create Express application
 const app = express();
 
-app.use(cors());
+// app.use(cors());
 
 // Parse incoming request bodies in JSON format
 app.use(bodyParser.json());
@@ -54,20 +54,20 @@ app.get('/account', (req, res) => {
 app.put('/account/:id', (req, res) => {
   const { id } = req.params;
   const { name, industry, website, address, notes } = req.body;
-  pool.query('UPDATE accounts SET name = ?, industry = ?, website = ?, address = ?, notes= ? WHERE id = ?', [name, industry, website, address,notes ,id,],  (error, results, fields) => {
+  pool.query('UPDATE accounts SET name = ?, industry = ?, website = ?, address = ?, notes= ? WHERE id = ?', [name, industry, website, address, notes, id,], (error, results, fields) => {
     if (error) {
       console.error('Error updating item:', error);
       res.status(500).json({ error: 'Error updating item' });
       return;
     }
-    res.json({ ...req.body});
+    res.json({ ...req.body });
   });
 });
 
 // Route for deleting an item
 app.delete('/account/:id', (req, res) => {
   const { id } = req.params;
-  pool.query('DELETE FROM items WHERE id = ?', [id], (error, results, fields) => {
+  pool.query('DELETE FROM accounts WHERE id = ?', [id], (error, results, fields) => {
     if (error) {
       console.error('Error deleting item:', error);
       res.status(500).json({ error: 'Error deleting item' });
